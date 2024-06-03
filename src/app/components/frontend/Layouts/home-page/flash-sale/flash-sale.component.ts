@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../products/service/product.service';
 import { FlashProductComponent } from './flash-product/flash-product.component';
-
 @Component({
     standalone: true,
     selector: 'app-flash-sale',
@@ -9,12 +8,13 @@ import { FlashProductComponent } from './flash-product/flash-product.component';
     styleUrls: ['./flash-sale.component.css'],
     imports: [FlashProductComponent],
 })
-export class FlashSaleComponent implements OnInit {
+export class FlashSaleComponent {
     products: any = [];
-    constructor(private _product: ProductService) {}
-    ngOnInit() {
+    loop: boolean = false;
+    constructor(private _product: ProductService) {
         this._product.flashSale().subscribe((data) => {
             this.products = data;
+            this.loop = true;
         });
     }
 }

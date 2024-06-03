@@ -1,14 +1,52 @@
 {
-  "products": [
-
-  ],
-  "carts": [
-
-  ],
-  "users":[
-
-  ],
-  "admins":[
-
-  ]
+    "products": [],
+    "carts": [
+        {
+            "id": 1,
+            "title": "Essence Mascara Lash Princess",
+            "price": 9.99,
+            "discountPercentage": 7.17,
+            "qty": 1,
+            "sku": "RCH45Q1A",
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+        },
+        {
+            "id": 2,
+            "title": "Eyeshadow Palette with Mirror",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "qty": 1,
+            "sku": "MVCFH27F",
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+        },
+        {
+            "id": 3,
+            "title": "Powder Canister",
+            "price": 14.99,
+            "discountPercentage": 18.14,
+            "qty": 1,
+            "sku": "9EN8WLT2",
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
+        },
+        {
+            "id": 4,
+            "title": "Red Lipstick",
+            "price": 12.99,
+            "discountPercentage": 19.03,
+            "qty": 1,
+            "sku": "O5IF1NTA",
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
+        },
+        {
+            "id": 5,
+            "title": "Red Nail Polish",
+            "price": 8.99,
+            "discountPercentage": 2.46,
+            "qty": 1,
+            "sku": "YUIIIP4W",
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png"
+        }
+    ],
+    "users": [],
+    "admins": []
 }

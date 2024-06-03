@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
     standalone: true,
     imports: [],
@@ -8,9 +9,10 @@ import { initFlowbite } from 'flowbite';
     styleUrls: ['./bottom-slider.component.css'],
 })
 export class BottomSliderComponent implements OnInit {
-    constructor() {}
-
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
     ngOnInit() {
-        initFlowbite();
+        if (isPlatformBrowser(this.platformId)) {
+            initFlowbite();
+        }
     }
 }

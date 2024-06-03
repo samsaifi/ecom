@@ -3,7 +3,7 @@
     role="button"
     title="Adidas Shoes Black"
 >
-    <app-rating [rating]="product.rating"></app-rating>
+    <!-- <app-rating [rating]="product.rating"></app-rating> -->
     <div class="flex mb-3 md:mb-3.5 pb-0">
         <img alt="Adidas Shoes Black" [src]="product.thumbnail" />
         <div
@@ -25,10 +25,11 @@
             class="text-sm mt-1.5 flex justify-between items-center gap-x-2 md:mt-2.5 2xl:mt-3 text-heading"
         >
             <span class="flex">{{ product.price | currency }}</span>
-            <del class="font-normal text-gray-300">{{
-                this.negelate() | currency
-            }}</del>
+            <del class="font-normal text-gray-300">
+                {{ product.price * 2 }}
+            </del>
             <button
+                (click)="addToCart(product.id)"
                 class="p-3 py-1 shrink text-sm text-white rounded-full border-1 bg-black"
             >
                 Add to cart
