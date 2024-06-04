@@ -11,10 +11,11 @@ import { FlashProductComponent } from './flash-product/flash-product.component';
 export class FlashSaleComponent {
     products: any = [];
     loop: boolean = false;
-    constructor(private _product: ProductService) {
+    constructor(private _product: ProductService) {}
+    ngOnInit(): void {
         this._product.flashSale().subscribe((data) => {
             this.products = data;
-            this.loop = true;
         });
+        this.loop = true;
     }
 }

@@ -45,6 +45,6 @@ export class FlashProductComponent implements OnInit {
             sku: this.product.sku,
             thumbnail: this.product.thumbnail,
         };
-        this._cart.submitCart(cartProduct);
+        this._cart.createProduct(cartProduct);
     }
 }

@@ -1019,26 +1019,26 @@
                 </div>
                 <button
                     (click)="toggleCart()"
-                    class="relative flex items-center justify-center flex-shrink-0 h-auto transform focus:outline-none"
+                    class="relative flex items-center justify-center flex-shrink-0 h-auto transform focus:outline-none bg-gray-100 p-3"
                     aria-label="cart-button"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="18px"
-                        height="18px"
-                        viewBox="0 0 20 20"
-                        class="md:w-4 xl:w-5 md:h-4 xl:h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
                     >
                         <path
-                            d="M5,4H19a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4ZM2,5A3,3,0,0,1,5,2H19a3,3,0,0,1,3,3V19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3Zm10,7C9.239,12,7,9.314,7,6H9c0,2.566,1.669,4,3,4s3-1.434,3-4h2C17,9.314,14.761,12,12,12Z"
-                            transform="translate(-2 -2)"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                        ></path>
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        />
                     </svg>
                     <span
-                        class="cart-counter-badge flex items-center justify-center bg-heading text-white absolute -top-2.5 xl:-top-3 rounded-full ltr:-right-2.5 ltr:xl:-right-3 rtl:-left-2.5 rtl:xl:-left-3 font-bold"
-                        >0</span
+                        class="cart-counter-badge w-6 h-6 flex items-center justify-center text-white absolute -top-2 -right-2 bg-red-600 rounded-full font-bold"
+                        >{{ cartItemCount() }}</span
                     >
                 </button>
             </div>
@@ -1046,8 +1046,7 @@
     </div>
 </header>
 @if(cartOpen){
-<app-cart
-    [cartStatus]="cartOpen"
-    (cartCloseEmit)="closeCart($event)"
-></app-cart>
+
+<app-cart (dataEmitter)="receiveData($event)"></app-cart>
+
 }

@@ -16,7 +16,6 @@ export class ProductCarouselComponent {
     constructor(private cat: ProductsCategoryService) {}
     ngOnInit(): void {
         this.getList();
-        console.log(this.categories);
     }
     getList = () => {
         this.cat.getAll().subscribe((data) => {

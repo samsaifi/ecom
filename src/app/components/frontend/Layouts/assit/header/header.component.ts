@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DefualtLocalStorage } from '../../../../../lib/storage/local/defualt';
 import { CartComponent } from './cart/cart.component';
+import { CartService } from './cart/cart.service';
+import { log } from 'console';
 @Component({
     selector: 'app-header',
     standalone: true,
@@ -10,15 +12,30 @@ import { CartComponent } from './cart/cart.component';
 })
 export class HeaderComponent {
     logo: string = '';
-    cartOpen: boolean = false;
-    constructor(private ls: DefualtLocalStorage) {}
+    cartOpen: boolean;
+    childData?: string;
+    cartdata: any = [];
+    constructor(private ls: DefualtLocalStorage, private _cart: CartService) {
+        this.cartOpen = this._cart.cartBoxOpen;
+    }
     ngOnInit(): void {
         this.logo = this.ls.lc.getItem('logo');
+        this.getCartProduct();
+    }
+    getCartProduct() {
+        this._cart.getProducts().subscribe((data) => {
+            this.cartdata = data;
+        });
     }
     toggleCart(): void {
-        this.cartOpen = !this.cartOpen;
+        this._cart.cartBoxOpen = !this._cart.cartBoxOpen;
+        this.cartOpen = this._cart.cartBoxOpen;
     }
-    closeCart(cartsts: any) {
-        console.log(cartsts);
+    receiveData(data: boolean) {
+        this.cartOpen = data;
+        this._cart.cartBoxOpen = data;
+    }
+    cartItemCount() {
+        return this.cartdata.length;
     }
 }
