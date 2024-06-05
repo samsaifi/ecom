@@ -1,8 +1,8 @@
-import { product } from './../../../../products/interface/iproduct';
 import { Component, Input, OnInit } from '@angular/core';
 import { RatingComponent } from './rating/rating.component';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../assit/header/cart/cart.service';
+import { IProduct } from '../../../assit/header/cart/iproduct';
 @Component({
     standalone: true,
     imports: [RatingComponent, CommonModule],
@@ -13,6 +13,7 @@ import { CartService } from '../../../assit/header/cart/cart.service';
 export class FlashProductComponent implements OnInit {
     @Input() product: any;
     math: any;
+    productInCart: boolean = false;
     constructor(private _cart: CartService) {
         this.math = Math;
     }
@@ -36,8 +37,9 @@ export class FlashProductComponent implements OnInit {
         return shuffledArray;
     }
     addToCart() {
-        const cartProduct = {
-            id: this.product.id,
+        let id_ = `${this.product.id}`;
+        let cartProduct: IProduct = {
+            id: id_,
             title: this.product.title,
             price: this.product.price,
             discountPercentage: this.product.discountPercentage,
@@ -45,6 +47,40 @@ export class FlashProductComponent implements OnInit {
             sku: this.product.sku,
             thumbnail: this.product.thumbnail,
         };
-        this._cart.createProduct(cartProduct);
+        this._cart.getProduct(this.product.id).subscribe(
+            (data) => {
+                if (data) {
+                    // If the product already exists in the cart, update its quantity
+                    console.log('Product already in cart, updating quantity.');
+                    cartProduct.qty += data.qty; // Increment the quantity
+                    this._cart.updateProduct(cartProduct).subscribe(
+                        (updateData) => {
+                            console.log('Product updated in cart:', updateData);
+                        },
+                        (updateError) =>
+                            console.error(
+                                'Error updating product in cart:',
+                                updateError
+                            )
+                    );
+                } else {
+                    // If the product does not exist in the cart, add it
+                    console.log('Product not in cart, adding new product.');
+                    this._cart.createProduct(cartProduct).subscribe(
+                        (createData) =>
+                            console.log('Product added to cart:', createData),
+                        (createError) =>
+                            console.error(
+                                'Error adding product to cart:',
+                                createError
+                            )
+                    );
+                }
+            },
+            (error) => {
+                // Handle error when trying to get the product from the cart
+                console.error('Error fetching product from cart:', error);
+            }
+        );
     }
 }

@@ -2,29 +2,20 @@
   "products": [],
   "carts": [
     {
-      "id": 8,
-      "title": "Dior J'adore",
-      "price": 89.99,
-      "discountPercentage": 17.44,
-      "qty": 1,
-      "sku": "E70NB03B",
-      "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/thumbnail.png"
+      "id": "7",
+      "title": "Chanel Coco Noir Eau De",
+      "price": 129.99,
+      "discountPercentage": 18.64,
+      "qty": 5,
+      "sku": "K71HBCGS",
+      "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/thumbnail.png"
     },
     {
-      "id": 3,
-      "title": "Powder Canister",
-      "price": 14.99,
-      "discountPercentage": 18.14,
-      "qty": 1,
-      "sku": "9EN8WLT2",
-      "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
-    },
-    {
-      "id": 2,
+      "id": "2",
       "title": "Eyeshadow Palette with Mirror",
       "price": 19.99,
       "discountPercentage": 5.5,
-      "qty": 1,
+      "qty": 9,
       "sku": "MVCFH27F",
       "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
     }

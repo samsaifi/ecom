@@ -1,5 +1,5 @@
-export interface Icart {
-    id: number;
+export interface IProduct {
+    id: string;
     title: string;
     price: number;
     discountPercentage: number;

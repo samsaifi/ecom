@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../products/service/product.service';
 import { FlashProductComponent } from './flash-product/flash-product.component';
+import { IProduct } from '../../assit/header/cart/iproduct';
 @Component({
     standalone: true,
     selector: 'app-flash-sale',
@@ -9,7 +10,7 @@ import { FlashProductComponent } from './flash-product/flash-product.component';
     imports: [FlashProductComponent],
 })
 export class FlashSaleComponent {
-    products: any = [];
+    products: IProduct[] | any = [];
     loop: boolean = false;
     constructor(private _product: ProductService) {}
     ngOnInit(): void {

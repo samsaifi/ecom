@@ -14,6 +14,7 @@ export class HeaderComponent {
     logo: string = '';
     cartOpen: boolean;
     childData?: string;
+    cartItem?: number;
     cartdata: any = [];
     constructor(private ls: DefualtLocalStorage, private _cart: CartService) {
         this.cartOpen = this._cart.cartBoxOpen;
@@ -21,6 +22,7 @@ export class HeaderComponent {
     ngOnInit(): void {
         this.logo = this.ls.lc.getItem('logo');
         this.getCartProduct();
+        this.receiveCart(0);
     }
     getCartProduct() {
         this._cart.getProducts().subscribe((data) => {
@@ -37,5 +39,8 @@ export class HeaderComponent {
     }
     cartItemCount() {
         return this.cartdata.length;
+    }
+    receiveCart(data: number) {
+        this.cartItem = data ? data : this.cartItemCount();
     }
 }

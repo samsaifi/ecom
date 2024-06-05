@@ -1038,7 +1038,7 @@
                     </svg>
                     <span
                         class="cart-counter-badge w-6 h-6 flex items-center justify-center text-white absolute -top-2 -right-2 bg-red-600 rounded-full font-bold"
-                        >{{ cartItemCount() }}</span
+                        >{{ cartItem }}</span
                     >
                 </button>
             </div>
@@ -1046,7 +1046,8 @@
     </div>
 </header>
 @if(cartOpen){
-
-<app-cart (dataEmitter)="receiveData($event)"></app-cart>
-
+<app-cart
+    (dataEmitter)="receiveData($event)"
+    (cartCountEmitter)="receiveCart($event)"
+></app-cart>
 }

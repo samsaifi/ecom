@@ -1,16 +1,8 @@
-import { product } from './../../../../products/interface/iproduct';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-interface Product {
-    id: number;
-    title: string;
-    price: number;
-    discountPercentage: number;
-    qty: number;
-    sku: string;
-    thumbnail: string;
-}
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { IProduct } from './iproduct';
 @Injectable({
     providedIn: 'root',
 })
@@ -19,19 +11,27 @@ export class CartService {
     apiUrl: string = 'http://localhost:8000/carts';
     constructor(private http: HttpClient) {}
     // Create
-    createProduct(product: Product): Observable<Product> {
-        return this.http.post<Product>(this.apiUrl, product);
+    createProduct(product: IProduct): Observable<IProduct> {
+        return this.http.post<IProduct>(this.apiUrl, product);
     }
     // Read
-    getProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.apiUrl);
+    getProducts(): Observable<IProduct[]> {
+        return this.http.get<IProduct[]>(this.apiUrl);
     }
-    getProduct(id: number): Observable<Product> {
-        return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    getProduct(id: number): Observable<IProduct | null> {
+        return this.http.get<IProduct>(`${this.apiUrl}/${id}`).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 404) {
+                    return of(null); // Return null if product is not found
+                }
+                console.error('Error fetching product:', error);
+                throw error; // Re-throw other errors
+            })
+        );
     }
     // Update
-    updateProduct(product: Product): Observable<Product> {
-        return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
+    updateProduct(product: IProduct): Observable<IProduct> {
+        return this.http.put<IProduct>(`${this.apiUrl}/${product.id}`, product);
     }
     // Delete
     deleteProduct(id: number): Observable<void> {

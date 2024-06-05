@@ -1,15 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CartService } from './cart.service';
 import { CommonModule } from '@angular/common';
-interface Product {
-    id: number;
-    title: string;
-    price: number;
-    discountPercentage: number;
-    qty: number;
-    sku: string;
-    thumbnail: string;
-}
+import { IProduct } from './iproduct';
 @Component({
     selector: 'app-cart',
     standalone: true,
@@ -19,20 +11,22 @@ interface Product {
 })
 export class CartComponent {
     @Output() dataEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() cartCountEmitter: EventEmitter<number> =
+        new EventEmitter<number>();
     products: any = [];
     product: any = {
-        id: null,
+        id: '',
         title: '',
-        price: null,
-        discountPercentage: null,
-        qty: null,
+        price: 0,
+        discountPercentage: 0,
+        qty: 0,
         sku: '',
         thumbnail: '',
     };
     hideCart() {
         this.dataEmitter.emit(false);
     }
-    constructor(private productService: CartService) {}
+    constructor(public productService: CartService) {}
     ngOnInit(): void {
         this.getProducts();
     }
@@ -48,11 +42,12 @@ export class CartComponent {
             (error) => console.error('Error fetching product', error)
         );
     }
-    createProduct(product: any): void {
+    createProduct(product: IProduct): void {
         this.productService.createProduct(product).subscribe(
             (data) => {
                 console.log('Product created', data);
                 this.getProducts();
+                this.cartTotalProduct();
             },
             (error) => console.error('Error creating product', error)
         );
@@ -62,6 +57,7 @@ export class CartComponent {
             (data) => {
                 console.log('Product updated', data);
                 this.getProducts();
+                this.cartTotalProduct();
             },
             (error) => console.error('Error updating product', error)
         );
@@ -70,18 +66,22 @@ export class CartComponent {
         this.productService.deleteProduct(id).subscribe(
             () => {
                 console.log('Product deleted');
-                this.getProducts();
+                // this.getProducts();
+                this.products = this.products.filter((p: any) => p.id !== id);
+                this.cartTotalProduct();
             },
             (error) => console.error('Error deleting product', error)
         );
     }
     cartTotal() {
         const totalSum = this.products.reduce(
-            (sum: number, product: Product) =>
+            (sum: number, product: IProduct) =>
                 sum + product.price * product.qty,
             0
         );
-        console.log('Total Sum:', totalSum.toFixed(2));
         return totalSum.toFixed(2);
+    }
+    cartTotalProduct() {
+        this.cartCountEmitter.emit(this.products.length);
     }
 }
